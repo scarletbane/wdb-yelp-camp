@@ -32,8 +32,10 @@ app.use(
 app.use(express.static(path.join(__dirname, "/node_modules/bootstrap/dist")));
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res) => {
-    res.render("pages/home", { title: "Home" });
+app.get("/", async (req, res) => {
+    const campgrounds = await Campground.find({});
+
+    res.render("pages/home", { title: "Home", campgrounds: campgrounds });
 });
 
 app.listen(port, () => {
