@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const ejsMate = require('ejs-mate');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
@@ -17,6 +18,7 @@ db.on('open', () => {
 const app = express();
 const port = 3000;
 
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
