@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, '/node_modules/bootstrap/dist')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.render('pages/index');
+    res.render('pages/home', {title: 'Home'});
 });
 
 app.listen(port, () => {
