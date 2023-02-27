@@ -6,6 +6,7 @@
     <p><%= campground.location %></p>
     <p><%= campground.description %></p>
     <a href="/campgrounds">Back</a>
+    <a href="/campgrounds/<%= campground.id %>/edit">Edit</a>
     <form
         action="/campgrounds/<%= campground.id %>?_method=DELETE"
         method="POST"
