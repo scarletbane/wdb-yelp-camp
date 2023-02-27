@@ -33,13 +33,30 @@ app.use(express.static(path.join(__dirname, "/node_modules/bootstrap/dist")));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", async (req, res) => {
+    res.render("pages/home", { title: "Home" });
+});
+
+app.get("/campgrounds", async (req, res) => {
     const campgrounds = await Campground.find({});
 
-    res.render("pages/home", { title: "Home", campgrounds: campgrounds });
+    res.render("pages/campgrounds/index", {
+        title: "Campgrounds",
+        campgrounds: campgrounds,
+    });
+});
+
+app.get("/campgrounds/:id", async (req, res) => {
+    const id = req.params.id;
+    const campground = await Campground.findOne({ _id: id });
+
+    res.render("pages/campgrounds/show", {
+        title: campground.title,
+        campground: campground,
+    });
 });
 
 app.listen(port, () => {
     console.log(
-        `App listening on port ${port}. Click the link http://localhost:${port}.`
+        `App listening on port ${port}. Click the link http://localhost:${port}`
     );
 });

@@ -1,0 +1,19 @@
+<% layout('/layouts/boilerPlate') -%>
+<section>
+    <h1>Campgrounds</h1>
+    <ul>
+        <% campgrounds.forEach((campground) => { %>
+        <li>
+            <h2>
+                <a href="/campgrounds/<%= campground.id %>"
+                    ><%= campground.title %></a
+                >
+            </h2>
+            <p><%= campground.id %></p>
+            <p><%= campground.price %></p>
+            <p><%= campground.location %></p>
+            <p><%= campground.description %></p>
+        </li>
+        <% }); %>
+    </ul>
+</section>
