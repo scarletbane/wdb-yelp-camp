@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
@@ -23,6 +24,9 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(methodOverride("_method"));
+
+// use static files
 app.use(
     "/js",
     express.static(
@@ -54,6 +58,17 @@ app.get("/campgrounds/:id", async (req, res) => {
         campground: campground,
     });
 });
+
+app.post("/campground/:id", async (req, res) => {});
+
+app.delete("/campgrounds/:id", async (req, res) => {
+    const id = req.params.id;
+    await Campground.deleteOne({ _id: id });
+
+    res.redirect("/campgrounds");
+});
+
+app.patch("/campgrounds/:id", async (req, res) => {});
 
 app.listen(port, () => {
     console.log(
