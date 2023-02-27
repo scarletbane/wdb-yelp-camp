@@ -36,13 +36,6 @@ app.get("/", (req, res) => {
     res.render("pages/home", { title: "Home" });
 });
 
-app.get("/newcampground", async (req, res) => {
-    const camp = new Campground({
-        title: "My Backyard",
-    });
-    await camp.save();
-});
-
 app.listen(port, () => {
     console.log(
         `App listening on port ${port}. Click the link http://localhost:${port}.`
