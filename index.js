@@ -1,5 +1,18 @@
 const express = require('express');
 const path = require('path');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+
+dotenv.config();
+
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.on('open', () => {
+    console.log('Database connected');
+});
 
 const app = express();
 const port = 3000;
