@@ -59,6 +59,14 @@ app.get("/campgrounds/:id", async (req, res) => {
     });
 });
 
+app.get("/campgrounds/new", (req, res) => {
+    res.render("pages/campgrounds/new", { title: "New Campground" });
+});
+
+app.get("/campgrounds/:id/edit", (req, res) => {
+    res.render("pages/campgrounds/edit");
+});
+
 app.post("/campground/:id", async (req, res) => {});
 
 app.delete("/campgrounds/:id", async (req, res) => {
