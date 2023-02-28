@@ -4,7 +4,9 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-const Campground = require("./models/campground");
+
+const Campground = require("./src/models/campground");
+const port = process.env.PORT || 3000;
 
 dotenv.config();
 
@@ -18,11 +20,10 @@ db.on("open", () => {
 });
 
 const app = express();
-const port = 3000;
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "src/views"));
 
 app.use(methodOverride("_method"));
 
@@ -30,11 +31,11 @@ app.use(methodOverride("_method"));
 app.use(
     "/js",
     express.static(
-        path.join(__dirname, "/node_modules/@popperjs/core/dist/umd")
+        path.join(__dirname, "./node_modules/@popperjs/core/dist/umd")
     )
 );
-app.use(express.static(path.join(__dirname, "/node_modules/bootstrap/dist")));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "./node_modules/bootstrap/dist")));
+app.use(express.static(path.join(__dirname, "./src/public")));
 
 app.get("/", async (req, res) => {
     res.render("pages/home", { title: "Home" });
@@ -85,7 +86,5 @@ app.delete("/campgrounds/:id", async (req, res) => {
 app.patch("/campgrounds/:id", async (req, res) => {});
 
 app.listen(port, () => {
-    console.log(
-        `App listening on port ${port}. Click the link http://localhost:${port}`
-    );
+    console.log(`App listening at http://localhost:${port}`);
 });
