@@ -4,8 +4,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const campgroundRoutes = require("./src/routes/campgrounds.route");
 
-const Campground = require("./src/models/campground");
 const port = process.env.PORT || 3000;
 
 dotenv.config();
@@ -27,7 +27,10 @@ app.set("views", path.join(__dirname, "src/views"));
 
 app.use(methodOverride("_method"));
 
-// use static files
+// Use Routes
+app.use("/campgrounds", campgroundRoutes);
+
+// Use static files
 app.use(
     "/js",
     express.static(
@@ -40,50 +43,6 @@ app.use(express.static(path.join(__dirname, "./src/public")));
 app.get("/", async (req, res) => {
     res.render("pages/home", { title: "Home" });
 });
-
-app.get("/campgrounds", async (req, res) => {
-    const campgrounds = await Campground.find({});
-
-    res.render("pages/campgrounds/index", {
-        title: "Campgrounds",
-        campgrounds: campgrounds,
-    });
-});
-
-app.get("/campgrounds/new", (req, res) => {
-    res.render("pages/campgrounds/new", { title: "New Campground" });
-});
-
-app.get("/campgrounds/:id", async (req, res) => {
-    const id = req.params.id;
-    const campground = await Campground.findOne({ _id: id });
-
-    res.render("pages/campgrounds/show", {
-        title: campground.title,
-        campground: campground,
-    });
-});
-
-app.get("/campgrounds/:id/edit", async (req, res) => {
-    const id = req.params.id;
-    const campground = await Campground.findById(id);
-
-    res.render("pages/campgrounds/edit", {
-        title: campground.title,
-        campground: campground,
-    });
-});
-
-app.post("campgrounds/new", (req, res) => {});
-
-app.delete("/campgrounds/:id", async (req, res) => {
-    const id = req.params.id;
-    await Campground.findByIdAndDelete(id);
-
-    res.redirect("/campgrounds");
-});
-
-app.patch("/campgrounds/:id", async (req, res) => {});
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
