@@ -41,7 +41,13 @@ router.post("/new", async (req, res) => {
     res.redirect(`/campgrounds/${campground._id}`);
 });
 
-router.patch("/:id", async (req, res) => {});
+router.patch("/:id", async (req, res) => {
+    const campground = await Campground.findByIdAndUpdate(
+        req.params.id,
+        req.body.campground
+    );
+    res.redirect(`/campgrounds/${campground._id}`);
+});
 
 router.delete("/:id", async (req, res) => {
     const id = req.params.id;
