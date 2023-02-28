@@ -26,6 +26,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "src/views"));
 
 app.use(methodOverride("_method"));
+app.use(express.urlencoded({ extended: true }));
 
 // Use Routes
 app.use("/campgrounds", campgroundRoutes);

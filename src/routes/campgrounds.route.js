@@ -36,7 +36,12 @@ router.get("/:id/edit", async (req, res) => {
     });
 });
 
-router.post("/new", (req, res) => {});
+router.post("/new", async (req, res) => {
+    const campground = await new Campground(req.body.campground).save();
+    res.redirect(`/campgrounds/${campground._id}`);
+});
+
+router.patch("/:id", async (req, res) => {});
 
 router.delete("/:id", async (req, res) => {
     const id = req.params.id;
@@ -44,7 +49,5 @@ router.delete("/:id", async (req, res) => {
 
     res.redirect("/campgrounds");
 });
-
-router.patch("/:id", async (req, res) => {});
 
 module.exports = router;
