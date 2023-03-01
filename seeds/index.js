@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
-const Campground = require("../models/campground");
+const Campground = require("../src/models/campground");
 
 dotenv.config();
 
