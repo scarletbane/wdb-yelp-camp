@@ -1,6 +1,10 @@
 <% layout('layouts/boilerplate') -%>
 <section>
     <h1><%= campground.title %></h1>
+    <img
+        src="<%= campground.image %>"
+        alt="<%= campground.title %> campground image"
+    />
     <p><%= campground.price %></p>
     <p><%= campground.location %></p>
     <p><%= campground.description %></p>
