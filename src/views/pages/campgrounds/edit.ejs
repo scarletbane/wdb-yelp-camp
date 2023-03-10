@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') -%>
 
 <section class="row">
-    <h1 class="text-center">Edit - <%= campground.title %></h1>
+    <h1 class="text-center">Edit Campground - <%= campground.title %></h1>
     <div class="col-6 offset-3">
         <div>
             <form
@@ -75,9 +75,13 @@
 
                 <div class="btn-group">
                     <button type="submit" class="btn btn-success">
-                        Edit Campground
+                        Save Campground
                     </button>
-                    <a href="/campgrounds" class="btn btn-danger">Back</a>
+                    <a
+                        href="/campgrounds/<%= campground._id %>"
+                        class="btn btn-danger"
+                        >Back</a
+                    >
                 </div>
             </form>
         </div>
