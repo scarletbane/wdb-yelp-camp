@@ -1,4 +1,5 @@
 const express = require("express");
+const moment = require("moment");
 const Campground = require("../models/campground");
 
 const router = express.Router();
@@ -9,11 +10,15 @@ router.get("/", async (req, res) => {
     res.render("pages/campgrounds/index", {
         title: "Campgrounds",
         campgrounds: campgrounds,
+        moment: moment,
     });
 });
 
 router.get("/new", (req, res) => {
-    res.render("pages/campgrounds/new", { title: "New Campground" });
+    res.render("pages/campgrounds/new", {
+        title: "New Campground",
+        moment: moment,
+    });
 });
 
 router.get("/:id", async (req, res) => {
@@ -23,6 +28,7 @@ router.get("/:id", async (req, res) => {
     res.render("pages/campgrounds/show", {
         title: campground.title,
         campground: campground,
+        lastUpdatedRelative: moment(campground.lastUpdated).fromNow(),
     });
 });
 
@@ -33,6 +39,7 @@ router.get("/:id/edit", async (req, res) => {
     res.render("pages/campgrounds/edit", {
         title: campground.title,
         campground: campground,
+        moment: moment,
     });
 });
 

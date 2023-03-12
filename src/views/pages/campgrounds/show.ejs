@@ -1,9 +1,9 @@
 <% layout('layouts/boilerplate') -%>
 
-<section class="mb-3">
+<section>
     <div class="row">
         <div class="col-6 offset-3">
-            <div class="card">
+            <div class="card mb-3">
                 <img
                     src="<%= campground.image %>"
                     alt="campground image"
@@ -50,6 +50,11 @@
                             </button>
                         </form>
                     </div>
+                </div>
+                <div class="card-footer">
+                    <span class="text-muted">
+                        Last updated <%= lastUpdatedRelative %>
+                    </span>
                 </div>
             </div>
         </div>
