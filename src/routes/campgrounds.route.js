@@ -10,14 +10,12 @@ router.get("/", async (req, res) => {
     res.render("pages/campgrounds/index", {
         title: "Campgrounds",
         campgrounds: campgrounds,
-        moment: moment,
     });
 });
 
 router.get("/new", (req, res) => {
     res.render("pages/campgrounds/new", {
         title: "New Campground",
-        moment: moment,
     });
 });
 
@@ -39,19 +37,29 @@ router.get("/:id/edit", async (req, res) => {
     res.render("pages/campgrounds/edit", {
         title: campground.title,
         campground: campground,
-        moment: moment,
     });
 });
 
 router.post("/new", async (req, res) => {
-    const campground = await new Campground(req.body.campground).save();
+    const newCampground = {
+        ...req.body.campground,
+        dateCreated: moment().format(),
+        lastUpdated: moment().format(),
+    };
+
+    const campground = await new Campground(newCampground).save();
     res.redirect(`/campgrounds/${campground._id}`);
 });
 
 router.patch("/:id", async (req, res) => {
+    const updatedCampground = {
+        ...req.body.campground,
+        lastUpdated: moment().format(),
+    };
+
     const campground = await Campground.findByIdAndUpdate(
         req.params.id,
-        req.body.campground
+        updatedCampground
     );
     res.redirect(`/campgrounds/${campground._id}`);
 });
