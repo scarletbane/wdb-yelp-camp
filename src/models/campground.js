@@ -7,6 +7,8 @@ const CampgroundSchema = new Schema({
     image: String,
     description: String,
     location: String,
+    dateCreated: String,
+    lastUpdated: String,
 });
 
 module.exports = mongoose.model("Campground", CampgroundSchema);
