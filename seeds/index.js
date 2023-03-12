@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const moment = require("moment");
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
 const Campground = require("../src/models/campground");
@@ -31,6 +32,8 @@ const seedDB = async () => {
             description:
                 "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!",
             price,
+            dateCreated: moment().format(),
+            lastUpdated: moment().format(),
         });
         await camp.save();
     }
