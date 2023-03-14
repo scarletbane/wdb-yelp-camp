@@ -4,7 +4,12 @@
     <h1 class="text-center">New Campground</h1>
     <div class="col-6 offset-3">
         <div>
-            <form action="/campgrounds/new" method="POST">
+            <form
+                action="/campgrounds/new"
+                method="POST"
+                novalidate
+                class="needs-validation"
+            >
                 <div>
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
@@ -13,7 +18,9 @@
                             id="title"
                             name="campground[title]"
                             class="form-control"
+                            required
                         />
+                        <div class="invalid-feedback">Please enter a title</div>
                     </div>
                     <div class="mb-3">
                         <label for="location" class="form-label"
@@ -24,7 +31,11 @@
                             id="location"
                             name="campground[location]"
                             class="form-control"
+                            required
                         />
+                        <div class="invalid-feedback">
+                            Please enter a location
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Image URL</label>
@@ -33,11 +44,15 @@
                             id="image"
                             name="campground[image]"
                             class="form-control"
+                            required
                         />
+                        <div class="invalid-feedback">
+                            Please enter a image URL
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">Price</label>
-                        <div class="input-group">
+                        <div class="input-group has-validation">
                             <span class="input-group-text" id="price">$</span>
                             <input
                                 type="number"
@@ -48,7 +63,11 @@
                                 min="0"
                                 aria-label="price"
                                 aria-describedby="price"
+                                required
                             />
+                            <div class="invalid-feedback">
+                                Please enter a price
+                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -60,7 +79,11 @@
                             name="campground[description]"
                             rows="5"
                             class="form-control"
+                            required
                         ></textarea>
+                        <div class="invalid-feedback">
+                            Please enter a description
+                        </div>
                     </div>
                 </div>
 
