@@ -45,6 +45,10 @@ app.get("/", async (req, res) => {
     res.render("pages/home", { title: "Home" });
 });
 
+app.all("*", (req, res, next) => {
+    res.render("pages/error", { title: "Page Not Found" });
+});
+
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
 });
