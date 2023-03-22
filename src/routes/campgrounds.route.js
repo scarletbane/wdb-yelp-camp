@@ -1,10 +1,22 @@
 const express = require("express");
 const moment = require("moment");
+const { campgroundSchema } = require("../schemas/campground");
 const catchAsync = require("../utilities/catchAsync");
 const ExpressError = require("../utilities/ExpressError");
 const Campground = require("../models/campground");
 
 const router = express.Router();
+
+const validateCampground = (req, res, next) => {
+    const { error } = campgroundSchema.validate(req.body);
+
+    if (error) {
+        const message = error.details.map((el) => el.message).join(",");
+        throw new ExpressError(message, 400);
+    } else {
+        next();
+    }
+};
 
 router.get("/", async (req, res) => {
     const campgrounds = await Campground.find({});
@@ -49,10 +61,11 @@ router.get(
 );
 
 router.post(
-    "/new",
+    "/",
+    validateCampground,
     catchAsync(async (req, res) => {
         const newCampground = {
-            ...req.body.campground,
+            ...req.body.campgroud,
             dateCreated: moment().format(),
             lastUpdated: moment().format(),
         };
@@ -64,6 +77,7 @@ router.post(
 
 router.patch(
     "/:id",
+    validateCampground,
     catchAsync(async (req, res) => {
         const updatedCampground = {
             ...req.body.campground,
